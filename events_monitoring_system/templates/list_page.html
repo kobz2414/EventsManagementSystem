@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <div class="modal fade" id="add_events" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add event</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST"> {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="event_name">Event Name</label>
+                            <input type="text" class="form-control" name="event_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="event_location">Event Location</label>
+                            <input type="text" class="form-control" name="event_location">
+                        </div>
+                        <div class="form-group">
+                            <label for="event_date">Event Date</label>
+                            <input class="form-control" type="text" style="width: 100%%" name="event_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="event_remarks">Event Remarks</label>
+                            <textarea class="form-control" name="event_remarks" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="event_pricing">Pricing</label>
+                            <input type="text" class="form-control" name="event_pricing">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="submit">Add Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <h1 style="display: inline-block; margin-left: 10px">Events</h1> 
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#add_events" style="float:right; margin-right: 20px">
+        Add event
+    </button>
+    {% if events %} 
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Event Location</th>
+                    <th>Event Date</th>
+                    <th>Event Remarks</th>
+                    <th>Event Pricing</th>
+                    <th>Date Added</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead> 
+            {% for event in events %}
+            <tbody>
+                <tr>
+                    <td>{{ event.event_name }}</td>
+                    <td>{{ event.event_location }}</td>
+                    <td>{{ event.event_date }}</td>
+                    <td>{{ event.event_remarks }}</td>
+                    <td>{{ event.event_pricing }}</td>
+                    <td>{{ event.date_added }}</td>
+                    <td><center><a href="{% url 'delete' event.id %}">Delete</a></center></td>
+                    <td><center><a href="{% url 'edit' event.id %}">Edit</a></center></td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock  %}

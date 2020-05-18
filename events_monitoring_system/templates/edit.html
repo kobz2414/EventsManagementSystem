@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% block content %}   
+<form method="POST"> {% csrf_token %}
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="event_name">Event Name</label>
+            <input type="text" class="form-control" name="event_name" value="{{ event_item.event_name}}">
+        </div>
+        <div class="form-group">
+            <label for="event_location">Event Location</label>
+            <input type="text" class="form-control" name="event_location" value="{{ event_item.event_location}}">
+        </div>
+        <div class="form-group">
+            <label for="event_date">Event Date</label>
+            <input class="form-control" type="text" style="width: 100%%" name="event_date" value="{{ event_item.event_date}}">
+        </div>
+        <div class="form-group">
+            <label for="event_remarks">Event Remarks</label>
+            <input type="text" class="form-control" name="event_remarks" rows="3" value="{{ event_item.event_remarks}}"></input>
+        </div>
+        <div class="form-group">
+            <label for="event_pricing">Pricing</label>
+            <input type="text" class="form-control" name="event_pricing" value="{{ event_item.event_pricing}}">
+        </div>
+    </div>
+    <div style= "display: inline-block; float: right; margin-right: 20px">
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+    <div style= "display: inline-block; float: right; margin-right: 5px">
+        <a href="{% url 'listings' %}" class="btn btn-secondary" style="height: 38px">Cancel</a>
+    </div>
+</form>
+{% endblock  %}
